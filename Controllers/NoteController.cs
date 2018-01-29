@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RazorLight;
 
 namespace ModernNotes.Controllers
 {
@@ -11,7 +12,7 @@ namespace ModernNotes.Controllers
     {
         // GET /api/notes
         [HttpGet]
-        public IEnumerable<Note> Get()
+        public IEnumerable<Note> GetAll()
         {
             return new Note[] {};
         }
@@ -21,6 +22,7 @@ namespace ModernNotes.Controllers
         public string Get(int id)
         {
             return "note id 1";
-        }
+       }
+
     }
 }
