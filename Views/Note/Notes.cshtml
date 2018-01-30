@@ -1,5 +1,23 @@
+
 @{
     ViewData["Title"] = "Notes";
+    var notes = ViewData["Notes"] as IEnumerable<ModernNotes.Models.Note>;
 }
 
-<h2>@ViewData["Note"]</h2>
+@foreach (var note in notes){
+<div class="card">
+  <div class="card-header">
+   @note.Title
+   <div class="float-right">
+       <a href="/edit/@note.Id">Edit</a> | 
+       <a href="/delete/@note.Id">Delete</a>
+   </div>
+  </div>
+  <div class="card-body">
+      <p>@note.Content</p>
+  </div>
+    <div class="card-footer">
+     <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
+</div>
+}
