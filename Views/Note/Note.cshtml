@@ -6,7 +6,7 @@
 
 <div class="card">
   <div class="card-body">
-    <form>
+    <form> 
     <div class="form-group">
         <input class="form-control" id="title" value="@note.Title">
     </div>
@@ -14,7 +14,7 @@
         <textarea class="form-control" id="content">@note.Content</textarea>
     </div>
     <button type="submit" class="btn btn-outline-primary mb-2">Save note</button>
-    <button type="delete" class="btn btn-outline-danger mb-2 pull-right">Delete note</button>
+    <a href="/delete/@note.Id" class="btn btn-outline-danger mb-2 pull-right">Delete note</a>
   </div>
 </div>
 

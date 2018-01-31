@@ -14,12 +14,14 @@ namespace ModernNotes.Controllers
 
         public NoteController(NoteContext context){
             _context = context; 
+            /* 
             if(_context.Notes.Count()==0){
                 _context.Notes.Add(new Note{Title="note #1",
                                             Content="This is some content.",
                                             Id=1});
                 _context.SaveChanges();
             }
+            */
         }
 
         // GET /api/notes
@@ -30,7 +32,7 @@ namespace ModernNotes.Controllers
         }
 
         // GET /api/notes/5
-        [HttpGet("/api/notes/{id}")]
+        [HttpGet("/api/notes/{id}", Name = "Get")]
         public Note Get(long id)
         {
             Console.WriteLine(id);
@@ -42,13 +44,23 @@ namespace ModernNotes.Controllers
             return item;
        }
 
+       [HttpPost("/api/new")]
+        public IActionResult New([FromBody] Note note){
+            if(note==null){
+                return BadRequest();
+            }
+            _context.Notes.Add(note);
+            _context.SaveChanges();
+            return CreatedAtRoute("Edit", new { id = note.Id}, note);
+        }
+
        [Route("/notes")]  
        public IActionResult Notes(){
            ViewData["Notes"] = GetAll();
             return View();
         }
 
-       [Route("/edit/{id}")]  
+       [Route("/edit/{id}", Name="Edit")]  
        public IActionResult Note(int id){
            var note = Get(id);
            if(note == null) { 
