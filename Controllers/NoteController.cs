@@ -53,6 +53,41 @@ namespace ModernNotes.Controllers
             return CreatedAtRoute("View", new { id = note.Id}, note);
         }
 
+        [HttpPost("/api/delete/{id}")]
+        public IActionResult Delete(int id) { 
+            var note = Get(id);
+            if(note == null) { 
+                Console.WriteLine("damn");
+            }
+            _context.Notes.Remove(note);
+            return new NoContentResult();
+        }
+
+        [HttpPut("/api/update/{id}")]
+        public IActionResult Update (int id, [FromBody] Note updateNote) { 
+
+            Console.WriteLine("shitbucket");
+
+            if(updateNote == null || updateNote.Id != id) { 
+                Console.WriteLine(updateNote.Id);
+                Console.WriteLine(id);
+                return BadRequest();
+            }
+            var oldNote = Get(id); 
+            if (oldNote == null) {
+                return NotFound();
+            }
+
+            oldNote.Title = updateNote.Title;
+            oldNote.Content = updateNote.Content; 
+            
+            _context.Notes.Update(oldNote);
+            _context.SaveChanges();
+
+            return new NoContentResult();
+
+        }
+
        [Route("/notes")]  
        public IActionResult Notes(){
            ViewData["Notes"] = GetAll();
