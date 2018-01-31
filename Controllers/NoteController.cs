@@ -15,6 +15,9 @@ namespace ModernNotes.Controllers
             _context = context; 
         }
 
+        /// <summary>
+        /// Get all notes.!
+        /// </summary> 
         [HttpGet("/api/notes")]
         public IEnumerable<Note> GetAll()
         {
@@ -22,6 +25,8 @@ namespace ModernNotes.Controllers
         }
 
         [HttpGet("/api/notes/{id}", Name = "Get")]
+        /// <summary>
+        /// shit shit shit </summary> 
         public Note Get(long id)
         {
             var item = _context.Notes.FirstOrDefault(t => t.Id == id);
@@ -73,14 +78,14 @@ namespace ModernNotes.Controllers
 
         }
         
-       [HttpGet()]
+       [HttpGet]
        [Route("/notes")]  
        public IActionResult Notes(){
            ViewData["Notes"] = GetAll();
             return View();
         }
 
-       [HttpGet()]
+       [HttpGet]
        [Route("/note/{id}", Name="View")]  
        public IActionResult Note(int id){
            ViewData["Note"] = Get(id);
@@ -92,7 +97,7 @@ namespace ModernNotes.Controllers
         }
 
 
-       [HttpGet()]
+       [HttpGet]
        [Route("/edit/{id}", Name="Edit")]  
        public IActionResult Edit(int id){
            var note = Get(id);

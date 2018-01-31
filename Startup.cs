@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using ModernNotes.Models;
 using Swashbuckle.AspNetCore.Swagger;
-
+using Microsoft.Extensions.PlatformAbstractions;
 
 
 namespace ModernNotes {
@@ -28,7 +29,9 @@ namespace ModernNotes {
             services.AddMvc();
             services.AddSwaggerGen( c => {
                 c.SwaggerDoc("v1", new Info { Title = "Modern Notes API",
-                Version = "v1" });
+                    Version = "v1" });
+                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "docs.xml");
+                c.IncludeXmlComments(filePath);
             });
 
         }
