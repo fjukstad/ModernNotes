@@ -16,14 +16,19 @@ using Microsoft.Extensions.PlatformAbstractions;
 
 
 namespace ModernNotes {
+
+    ///<summary>Startup</summary>
     public class Startup {
+
+        ///<summary>Startup</summary>
         public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
 
+        ///<summary> App config </summary> 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        ///<summary>Configure services</summary>
         public void ConfigureServices(IServiceCollection services) {
             services.AddDbContext<NoteContext>(opt => opt.UseInMemoryDatabase("Notes"));
             services.AddMvc();
@@ -35,8 +40,7 @@ namespace ModernNotes {
             });
 
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        ///<summary>Config HTTP request pipeline</summary>
         public void Configure(IApplicationBuilder app, IHostingEnvironment
         env) {
             if (env.IsDevelopment())

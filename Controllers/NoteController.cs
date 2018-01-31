@@ -7,10 +7,12 @@ using ModernNotes.Models;
 
 namespace ModernNotes.Controllers
 {
+    /// <summary>Note controller.</summary>
     public class NoteController : Controller
     {
         private readonly NoteContext _context; 
 
+        /// <summary>Specify DB context.</summary>
         public NoteController(NoteContext context){
             _context = context; 
         }
@@ -102,6 +104,8 @@ namespace ModernNotes.Controllers
 
         }
 
+
+        ///<summary>All notes view controller.</summary> 
        [ApiExplorerSettings(IgnoreApi = true)]
        [HttpGet]
        [Route("/notes")]  
@@ -110,6 +114,7 @@ namespace ModernNotes.Controllers
             return View();
         }
 
+        ///<summary>Note view controller.</summary> 
        [ApiExplorerSettings(IgnoreApi = true)]
        [HttpGet]
        [Route("/note/{id}", Name="View")]  
@@ -122,7 +127,7 @@ namespace ModernNotes.Controllers
             return View();
         }
 
-
+        ///<summary>Edit note view.</summary> 
        [ApiExplorerSettings(IgnoreApi = true)]
        [HttpGet]
        [Route("/edit/{id}", Name="Edit")]  
