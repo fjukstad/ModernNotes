@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using ModernNotes.Models;
+using Swashbuckle.AspNetCore.Swagger;
+
 
 
 namespace ModernNotes {
@@ -24,6 +26,11 @@ namespace ModernNotes {
         public void ConfigureServices(IServiceCollection services) {
             services.AddDbContext<NoteContext>(opt => opt.UseInMemoryDatabase("Notes"));
             services.AddMvc();
+            services.AddSwaggerGen( c => {
+                c.SwaggerDoc("v1", new Info { Title = "Modern Notes API",
+                Version = "v1" });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +48,13 @@ namespace ModernNotes {
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Modern Notes API V1");
+            });
+
         }
     }
 }

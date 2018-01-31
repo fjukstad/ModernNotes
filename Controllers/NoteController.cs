@@ -72,13 +72,15 @@ namespace ModernNotes.Controllers
             return new NoContentResult();
 
         }
-
+        
+       [HttpGet()]
        [Route("/notes")]  
        public IActionResult Notes(){
            ViewData["Notes"] = GetAll();
             return View();
         }
 
+       [HttpGet()]
        [Route("/note/{id}", Name="View")]  
        public IActionResult Note(int id){
            ViewData["Note"] = Get(id);
@@ -90,6 +92,7 @@ namespace ModernNotes.Controllers
         }
 
 
+       [HttpGet()]
        [Route("/edit/{id}", Name="Edit")]  
        public IActionResult Edit(int id){
            var note = Get(id);
