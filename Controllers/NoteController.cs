@@ -9,29 +9,18 @@ namespace ModernNotes.Controllers
 {
     public class NoteController : Controller
     {
-
         private readonly NoteContext _context; 
 
         public NoteController(NoteContext context){
             _context = context; 
-            /* 
-            if(_context.Notes.Count()==0){
-                _context.Notes.Add(new Note{Title="note #1",
-                                            Content="This is some content.",
-                                            Id=1});
-                _context.SaveChanges();
-            }
-            */
         }
 
-        // GET /api/notes
         [HttpGet("/api/notes")]
         public IEnumerable<Note> GetAll()
         {
             return _context.Notes.ToList(); 
         }
 
-        // GET /api/notes/5
         [HttpGet("/api/notes/{id}", Name = "Get")]
         public Note Get(long id)
         {
@@ -109,5 +98,6 @@ namespace ModernNotes.Controllers
            }
            ViewData["Note"] = note;
             return View();
-        }}
+        }
+    }
 }
