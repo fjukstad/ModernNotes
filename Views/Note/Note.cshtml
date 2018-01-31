@@ -9,7 +9,7 @@
    @note.Title
    <div class="float-right">
        <a href="/edit/@note.Id">Edit</a> | 
-       <a href="/delete/@note.Id">Delete</a>
+       <a id="delete" href="#">Delete</a>
    </div>
   </div>
   <div class="card-body">
@@ -19,3 +19,15 @@
      <small class="text-muted">Last updated 3 mins ago</small>
     </div>
 </div>
+<script>
+    $("#delete").click(function(){
+        event.preventDefault();
+        $.ajax({
+            url:"/api/delete/@note.Id",
+            type:"POST",
+            success: function(data, textStatus, jqXHR){
+                window.location.href = "/";
+            }
+        })
+    });
+</script>

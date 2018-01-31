@@ -14,11 +14,22 @@
         <textarea class="form-control" id="content">@note.Content</textarea>
     </div>
     <button type="submit" class="btn btn-outline-primary mb-2">Save note</button>
-    <a href="/delete/@note.Id" class="btn btn-outline-danger mb-2 pull-right">Delete note</a>
+    <a id="delete-button" href="#" class="btn btn-outline-danger mb-2 pull-right">Delete note</a>
   </div>
 </div>
 
 <script>
+$("#delete-button").click(function(){
+    event.preventDefault();
+    $.ajax({
+        url:"/api/delete/@note.Id",
+        type:"POST",
+        success: function(data, textStatus, jqXHR){
+            window.location.href = "/";
+        }
+    })
+});
+
 $( "form" ).on( "submit", function( event ) {
     event.preventDefault();
 
