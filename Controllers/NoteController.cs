@@ -35,7 +35,6 @@ namespace ModernNotes.Controllers
         [HttpGet("/api/notes/{id}", Name = "Get")]
         public Note Get(long id)
         {
-            Console.WriteLine(id);
             var item = _context.Notes.FirstOrDefault(t => t.Id == id);
             if (item == null)
             {
@@ -51,7 +50,7 @@ namespace ModernNotes.Controllers
             }
             _context.Notes.Add(note);
             _context.SaveChanges();
-            return CreatedAtRoute("Edit", new { id = note.Id}, note);
+            return CreatedAtRoute("View", new { id = note.Id}, note);
         }
 
        [Route("/notes")]  
@@ -60,8 +59,19 @@ namespace ModernNotes.Controllers
             return View();
         }
 
-       [Route("/edit/{id}", Name="Edit")]  
+       [Route("/note/{id}", Name="View")]  
        public IActionResult Note(int id){
+           ViewData["Note"] = Get(id);
+           var note = Get(id);
+           if(note == null) { 
+               return NotFound();
+           }
+            return View();
+        }
+
+
+       [Route("/edit/{id}", Name="Edit")]  
+       public IActionResult Edit(int id){
            var note = Get(id);
            if(note == null) { 
                return NotFound();

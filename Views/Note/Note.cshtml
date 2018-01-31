@@ -1,20 +1,21 @@
 
 @{
-    ViewData["Title"] = "Edit Note";
     var note = ViewData["Note"] as ModernNotes.Models.Note;
+    ViewData["Title"] = note.Title;
 }
 
 <div class="card">
-  <div class="card-body">
-    <form> 
-    <div class="form-group">
-        <input class="form-control" id="title" value="@note.Title">
-    </div>
-    <div class="form-group">
-        <textarea class="form-control" id="content">@note.Content</textarea>
-    </div>
-    <button type="submit" class="btn btn-outline-primary mb-2">Save note</button>
-    <a href="/delete/@note.Id" class="btn btn-outline-danger mb-2 pull-right">Delete note</a>
+  <div class="card-header">
+   @note.Title
+   <div class="float-right">
+       <a href="/edit/@note.Id">Edit</a> | 
+       <a href="/delete/@note.Id">Delete</a>
+   </div>
   </div>
+  <div class="card-body">
+      <p>@note.Content</p>
+  </div>
+    <div class="card-footer">
+     <small class="text-muted">Last updated 3 mins ago</small>
+    </div>
 </div>
-
