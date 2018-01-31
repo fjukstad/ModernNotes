@@ -57,20 +57,16 @@ namespace ModernNotes.Controllers
         public IActionResult Delete(int id) { 
             var note = Get(id);
             if(note == null) { 
-                Console.WriteLine("damn");
+                return BadRequest();
             }
             _context.Notes.Remove(note);
+            _context.SaveChanges();
             return new NoContentResult();
         }
 
         [HttpPut("/api/update/{id}")]
         public IActionResult Update (int id, [FromBody] Note updateNote) { 
-
-            Console.WriteLine("shitbucket");
-
             if(updateNote == null || updateNote.Id != id) { 
-                Console.WriteLine(updateNote.Id);
-                Console.WriteLine(id);
                 return BadRequest();
             }
             var oldNote = Get(id); 
