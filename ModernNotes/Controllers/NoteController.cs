@@ -33,8 +33,17 @@ namespace ModernNotes.Controllers
         [ProducesResponseType(typeof(Note), 200)]
         [ProducesResponseType(typeof(void), 400)]       
         [HttpGet("/api/notes/{id}", Name = "Get")]
-        public Note Get(long id)
+        public IActionResult Get(long id)
         {
+            var item = get(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return new OkObjectResult(item);
+       }
+
+       private Note get(long id){
             var item = _context.Notes.FirstOrDefault(t => t.Id == id);
             if (item == null)
             {
@@ -67,7 +76,7 @@ namespace ModernNotes.Controllers
         [ProducesResponseType(typeof(void), 400)]  
         [HttpPost("/api/delete/{id}")]
         public IActionResult Delete(int id) { 
-            var note = Get(id);
+            var note = get(id);
             if(note == null) { 
                 return BadRequest();
             }
@@ -89,7 +98,8 @@ namespace ModernNotes.Controllers
             if(updateNote == null || updateNote.Id != id) { 
                 return BadRequest();
             }
-            var oldNote = Get(id); 
+
+            var oldNote = get(id); 
             if (oldNote == null) {
                 return NotFound();
             }
@@ -119,11 +129,11 @@ namespace ModernNotes.Controllers
        [HttpGet]
        [Route("/note/{id}", Name="View")]  
        public IActionResult Note(int id){
-           ViewData["Note"] = Get(id);
-           var note = Get(id);
+           var note = get(id);
            if(note == null) { 
                return NotFound();
            }
+           ViewData["Note"] = note;
             return View();
         }
 
@@ -132,7 +142,7 @@ namespace ModernNotes.Controllers
        [HttpGet]
        [Route("/edit/{id}", Name="Edit")]  
        public IActionResult Edit(int id){
-           var note = Get(id);
+           var note = get(id);
            if(note == null) { 
                return NotFound();
            }

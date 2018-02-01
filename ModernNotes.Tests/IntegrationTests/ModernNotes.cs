@@ -72,6 +72,71 @@ namespace ModernNotes.integrationTests
             Note returnedNote = JsonConvert.DeserializeObject<Note>(responseContent);
 
             Assert.Equal(json.ToString(), responseContent);
+
+        }
+
+        [Fact]
+        public async Task AllowUsersToViewOldNotes(){
+            var note = new Note(){
+                Id = 1,
+                Title = "test-note-1-title",
+                Content = "test-note-1-content"
+            }; 
+
+            var json = JsonConvert.SerializeObject(note);
+            var postBody = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
+            await _client.PostAsync("/api/new", postBody);
+
+            var response = await _client.GetAsync("/api/notes/1");
+            response.EnsureSuccessStatusCode();
+
+            var oldNote = await response.Content.ReadAsStringAsync();
+            Assert.Equal(json.ToString(), oldNote); 
+        }
+
+        [Fact]
+        public async Task AllowUsersToChangeAPreviousWrittenNote(){
+            var note = new Note(){
+                Id = 1,
+                Title = "test-note-1-title",
+                Content = "test-note-1-content"
+            }; 
+
+            var json = JsonConvert.SerializeObject(note);
+            var postBody = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
+            await _client.PostAsync("/api/new", postBody);
+
+            note.Content = note.Content + "-with-some-additions";
+            json = JsonConvert.SerializeObject(note);
+            postBody = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync("/api/update/1", postBody);
+            var responseCode = response.StatusCode;
+            Assert.Equal(HttpStatusCode.NoContent, responseCode);
+
+            response = await _client.GetAsync("/api/notes/1");
+            var updatedNote = await response.Content.ReadAsStringAsync();
+            Assert.Equal(json.ToString(), updatedNote);
+        }
+
+        [Fact]
+        public async Task AllowUsersToDeleteAPreviousWrittenNote(){
+            var note = new Note(){
+                Id = 1,
+                Title = "test-note-1-title",
+                Content = "test-note-1-content"
+            }; 
+
+            var json = JsonConvert.SerializeObject(note);
+            var postBody = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
+            await _client.PostAsync("/api/new", postBody);
+
+            var response = await _client.PostAsync("/api/delete/1", null);
+            var responseCode = response.StatusCode;
+            Assert.Equal(HttpStatusCode.NoContent, responseCode);
+
+            response = await _client.GetAsync("/api/notes/1");
+            responseCode = response.StatusCode;
+            Assert.Equal(HttpStatusCode.NotFound, responseCode);
         }
     }
 }
