@@ -1,12 +1,15 @@
 using System;
 using System.IO;
+using System.Text;
+using System.Net;
+using ModernNotes.Models; 
 using Xunit;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.AspNetCore.Hosting;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.AspNetCore.Hosting;
+using Newtonsoft.Json;
 
 namespace ModernNotes.integrationTests
 {
@@ -47,6 +50,28 @@ namespace ModernNotes.integrationTests
 
             // Assert
             Assert.Contains("Modern Notes", responseString);
+        }
+
+
+        [Fact]
+        public async Task AllowUsersToStoreNewNotes(){
+            var note = new Note(){
+                Id = 1,
+                Title = "test-note-1-title",
+                Content = "test-note-1-content"
+            }; 
+
+            var json = JsonConvert.SerializeObject(note);
+            var postBody = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync("/api/new", postBody);
+            var responseCode = response.StatusCode;
+            Assert.Equal(HttpStatusCode.Created, responseCode);
+
+            string responseContent = await response.Content.ReadAsStringAsync();
+            Note returnedNote = JsonConvert.DeserializeObject<Note>(responseContent);
+
+            Assert.Equal(json.ToString(), responseContent);
         }
     }
 }

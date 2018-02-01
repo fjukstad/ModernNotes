@@ -1,7 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-
+using Newtonsoft.Json; 
 
 namespace ModernNotes.Models
 {
@@ -10,14 +10,17 @@ namespace ModernNotes.Models
         
         ///<summary>Note id.</summary>
         [Required]
+        [JsonProperty(PropertyName = "id")]
         public int Id {get; set; }
 
         ///<summary>Note title.</summary>
         [Required]
+        [JsonProperty(PropertyName = "title")]
         public string Title {get; set; }
 
         ///<summary>Note title.</summary>
         [Required]
+        [JsonProperty(PropertyName = "content")]
         public string Content {get;set;}
     }
 
