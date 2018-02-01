@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernNotes", "ModernNotes\ModernNotes.csproj", "{D65C2B55-C4C6-40D0-9E2B-BD4B99271F1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernNotes.Tests", "ModernNotes.Tests\ModernNotes.Tests.csproj", "{62F0A84B-03E1-4D8C-AB64-9E5A230B3B86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernNotes.Tests", "ModernNotes.Tests\IntegrationTests\IntegrationTests.csproj", "{62F0A84B-03E1-4D8C-AB64-9E5A230B3B86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

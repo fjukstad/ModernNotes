@@ -16,6 +16,7 @@ namespace ModernNotes.integrationTests
         private readonly HttpClient _client;
 
         public ModernNotesShould (){
+            // Arrange
             _server = new TestServer(new WebHostBuilder()
                 .UseStartup<Startup>()
                 .UseContentRoot(GetContentRoot()));
@@ -33,16 +34,19 @@ namespace ModernNotes.integrationTests
             var webSiteRelativePath = @"../../../../../ModernNotes";
             return Path.Combine(currentDirectory, webSiteRelativePath);
         }
+
+
         [Fact]
-        public async Task ReturnIndex()
+        public async Task ServeHomePage()
         {
+            // Act
             var response = await _client.GetAsync("/");
             response.EnsureSuccessStatusCode();
 
             var responseString = await response.Content.ReadAsStringAsync();
 
             // Assert
-            Assert.Equal("Hello World!", responseString);
-            }
+            Assert.Contains("Modern Notes", responseString);
+        }
     }
 }
