@@ -9,15 +9,30 @@
    <a href="/note/@note.Id">@note.Title</a>
    <div class="float-right">
        <a href="/edit/@note.Id">Edit</a> | 
-       <a href="/delete/@note.Id">Delete</a>
+       <a id ="delete-@note.Id" href="">Delete</a>
    </div>
   </div>
   <div class="card-body">
       <p>@note.Content</p>
   </div>
     <div class="card-footer">
-     <small class="text-muted">Last updated 3 mins ago</small>
     </div>
 </div>
 <hr>
+<script>
+    $("#delete-@note.Id").click(function(){
+        event.preventDefault();
+        $.ajax({
+            url:"/api/delete/@note.Id",
+            type:"POST",
+            success: function(data, textStatus, jqXHR){
+                window.location.href = "/notes";
+            }
+        })
+    });
+</script>
 }
+<!--
+Not very elegant to include a script for each and every note, but 
+easy fix to get the delete links to work. 
+-->

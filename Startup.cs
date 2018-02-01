@@ -35,7 +35,7 @@ namespace ModernNotes {
             services.AddSwaggerGen( c => {
                 c.SwaggerDoc("v1", new Info { Title = "Modern Notes API",
                     Version = "v1" });
-                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "docs.xml");
+                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "ModernNotes.xml");
                 c.IncludeXmlComments(filePath);
             });
 

@@ -7,6 +7,7 @@ namespace ModernNotes.Controllers
 
         /// <summary>Index page</summary>
         public IActionResult Index(){
+            ViewData["Title"] = "Modern Notes";
             return View();
         }
     }

@@ -1,7 +1,7 @@
 # Modern Notes
 Modern Notes example solution. Simple web app for composing plain text notes.
 Users can view, edit and delete notes. In addition to the front-end user
-interface it has backend REST API. The API is documented [here](#).
+interface it has backend REST API. 
 
 ![screenshot](modernnotes.png)
 
@@ -37,3 +37,7 @@ docker run -p 8000:80 -ti modernnotes
 ```
 
 in this folder.  
+
+# API Documentation
+The API is documented with Swagger and is available or online 
+[here](http://ec2-35-158-119-192.eu-central-1.compute.amazonaws.com/swagger)
