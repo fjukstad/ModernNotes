@@ -8,10 +8,6 @@ interface it has backend REST API.
 We use an in-memory database for storing notes. Restarting the web app will
 delete any previously written notes.
 
-# Online Example
-The Modern Notes app is available at
-[http://ec2-35-158-119-192.eu-central-1.compute.amazonaws.com](http://ec2-35-158-119-192.eu-central-1.compute.amazonaws.com).
-
 # Build and run  
 You can build and run the Modern Notes example solution by running
 ```
@@ -43,8 +39,7 @@ from this directory.
 # API Documentation
 The API is documented with Swagger and is available at
 [localhost:8000/swagger](http://localhost:8000/swagger) when you run the app
-locally or online
-[here](http://ec2-35-158-119-192.eu-central-1.compute.amazonaws.com/swagger).
+locally.
 
 # Tests 
 [ModernNotes.Tests/IntegrationTests](ModernNotes.Tests/IntegrationTests)
